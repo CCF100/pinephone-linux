@@ -4,4 +4,4 @@ This is a PKGBUILD modified from https://github.com/dreemurrs-embedded/Pine64-Ar
 \
 Added patches include:\
     - CacULE\
-    - eg25 modem patches to support higher audio bitrates\
+    - eg25 modem patches to support higher audio bitrates
