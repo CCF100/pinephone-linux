@@ -6,5 +6,5 @@ Added patches include:\
     - CacULE\
     - eg25 modem patches to support higher audio bitrates
 
-On github? Main repository is at https://ccf100.duckdns.org/gitea/CCF_100/pinephone-linux
+On github? Main repository is at https://ccf100.duckdns.org/gitea/CCF_100/pinephone-linux\
 Github Mirror: https://github.com/CCF100/pinephone-linux
