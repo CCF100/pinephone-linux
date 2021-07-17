@@ -1,4 +1,4 @@
-pinephone-linux
+# pinephone-linux
 
 This is a PKGBUILD modified from https://github.com/dreemurrs-embedded/Pine64-Arch/tree/master/PKGBUILDS/pine64/linux-pine64\
 \
