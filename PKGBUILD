@@ -1,6 +1,6 @@
 # Contributor: Danct12 <danct12@disroot.org>
 # Maintainer: Danct12 <danct12@disroot.org>
-
+# Modified by Caleb Fontenot (CCF_100) <foley2431@gmail.com>
 buildarch=8
 
 pkgbase=linux-pine64
