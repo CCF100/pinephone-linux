@@ -5,7 +5,7 @@ buildarch=8
 
 pkgbase=linux-pine64
 _desc="Pine64 PinePhone"
-pkgver=5.10
+pkgver=5.13
 pkgrel=1
 arch=('aarch64')
 url="https://github.com/megous/linux"
