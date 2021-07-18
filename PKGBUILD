@@ -5,7 +5,7 @@ buildarch=8
 
 pkgbase=linux-pine64
 _desc="Pine64 PinePhone"
-pkgver=5.12.14
+pkgver=5.10
 pkgrel=1
 arch=('aarch64')
 url="https://github.com/megous/linux"
@@ -14,7 +14,7 @@ makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' '
 options=('!strip')
 
 # Source
-_commit="7984743a7e5e85a631a86c6c7ea957581116ea1d"
+_commit="3eeeb82a1599049c86fe8720e2665fe00cfbe4a1"
 source=("linux-$_commit.tar.gz::https://github.com/megous/linux/archive/${_commit}.tar.gz"
         'config'
         'enable-hdmi-output-pinetab.patch'
@@ -45,45 +45,45 @@ source=("linux-$_commit.tar.gz::https://github.com/megous/linux/archive/${_commi
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
         'ec25.patch'
-        'cacule-5.12.patch'
-        'rdb-5.12.patch')
+        'cacule-5.13.patch'
+        'rdb-5.13.patch')
 
 prepare() {
   cd linux-$_commit
 
   # PinePhone patches
-  patch -p1 -N < ../0013-fix-pogopin-i2c.patch
-  patch -p1 -N < ../dts-pinephone-drop-modem-power-node.patch
+  #patch -p1 -N < ../0013-fix-pogopin-i2c.patch
+  #patch -p1 -N < ../dts-pinephone-drop-modem-power-node.patch
 
   # camera
   patch -p1 -N < ../media-ov5640-Implement-autofocus.patch
 
   # PineTab patches
-  patch -p1 -N < ../pinetab-bluetooth.patch
-  patch -p1 -N < ../pinetab-accelerometer.patch
-  patch -p1 -N < ../0002-dts-add-pinetab-dev-old-display-panel.patch
-  patch -p1 -N < ../enable-jack-detection-pinetab.patch
-  patch -p1 -N < ../enable-hdmi-output-pinetab.patch
+  #patch -p1 -N < ../pinetab-bluetooth.patch
+  #patch -p1 -N < ../pinetab-accelerometer.patch
+  #patch -p1 -N < ../0002-dts-add-pinetab-dev-old-display-panel.patch
+  #patch -p1 -N < ../enable-jack-detection-pinetab.patch
+  #patch -p1 -N < ../enable-hdmi-output-pinetab.patch
 
   # bootsplash stuffs (took from glorious manjaro arm)
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"
   patch -Np1 -i "${srcdir}/0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch"
   patch -Np1 -i "${srcdir}/0003-revert-fbcon-remove-soft-scrollback-code.patch"
-  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
+  #patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
   # CacULE
-  patch -Np1 -i "${srcdir}/cacule-5.12.patch"
-  patch -Np1 -i "${srcdir}/rdb-5.12.patch"
+  patch -Np1 -i "${srcdir}/cacule-5.13.patch"
+  patch -Np1 -i "${srcdir}/rdb-5.13.patch"
    # FOSS Modem stuff
   patch -Np1 -i "${srcdir}/ec25.patch"
   cat "${srcdir}/config" > ./.config
@@ -271,7 +271,7 @@ for _p in "${pkgname[@]}"; do
   }"
 done
 
-md5sums=('be2107c7d73e375441402a856d2aa19a'
+md5sums=('SKIP'
          'SKIP'
          '979a787cf84bef9c60da78e72ec96550'
          'f79300740a7350d2d24ab5e120831b52'
