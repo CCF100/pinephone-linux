@@ -1,11 +1,11 @@
 # Contributor: Danct12 <danct12@disroot.org>
 # Maintainer: Danct12 <danct12@disroot.org>
-# Modified by Caleb Fontenot (CCF_100) <foley2431@gmail.com>
+
 buildarch=8
 
 pkgbase=linux-pine64
 _desc="Pine64 PinePhone"
-pkgver=5.13
+pkgver=5.12.19
 pkgrel=1
 arch=('aarch64')
 url="https://github.com/megous/linux"
@@ -14,7 +14,7 @@ makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' '
 options=('!strip')
 
 # Source
-_commit="3eeeb82a1599049c86fe8720e2665fe00cfbe4a1"
+_commit="c405805c3561a0b09809a5f236378c32be007163"
 source=("linux-$_commit.tar.gz::https://github.com/megous/linux/archive/${_commit}.tar.gz"
         'config'
         'enable-hdmi-output-pinetab.patch'
@@ -26,6 +26,7 @@ source=("linux-$_commit.tar.gz::https://github.com/megous/linux/archive/${_commi
         '0002-dts-add-pinetab-dev-old-display-panel.patch'
         '0013-fix-pogopin-i2c.patch'
         'dts-pinephone-drop-modem-power-node.patch'
+        '5.12.17-19.diff'
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook'
@@ -44,48 +45,48 @@ source=("linux-$_commit.tar.gz::https://github.com/megous/linux/archive/${_commi
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
-        'ec25.patch'
-        'cacule-5.13.patch'
-        'rdb-5.13.patch')
+        'cacule-5.12.patch'
+        'rdb-5.12.patch')
 
 prepare() {
   cd linux-$_commit
 
+  # 5.12.17 -> 5.12.19
+  patch -p1 -N -i "../5.12.17-19.diff" || true
+
   # PinePhone patches
-  #patch -p1 -N < ../0013-fix-pogopin-i2c.patch
-  #patch -p1 -N < ../dts-pinephone-drop-modem-power-node.patch
+  patch -p1 -N < ../0013-fix-pogopin-i2c.patch
+  patch -p1 -N < ../dts-pinephone-drop-modem-power-node.patch
 
   # camera
   patch -p1 -N < ../media-ov5640-Implement-autofocus.patch
 
   # PineTab patches
-  #patch -p1 -N < ../pinetab-bluetooth.patch
-  #patch -p1 -N < ../pinetab-accelerometer.patch
-  #patch -p1 -N < ../0002-dts-add-pinetab-dev-old-display-panel.patch
-  #patch -p1 -N < ../enable-jack-detection-pinetab.patch
-  #patch -p1 -N < ../enable-hdmi-output-pinetab.patch
+  patch -p1 -N < ../pinetab-bluetooth.patch
+  patch -p1 -N < ../pinetab-accelerometer.patch
+  patch -p1 -N < ../0002-dts-add-pinetab-dev-old-display-panel.patch
+  patch -p1 -N < ../enable-jack-detection-pinetab.patch
+  patch -p1 -N < ../enable-hdmi-output-pinetab.patch
 
-  # bootsplash stuffs (took from glorious manjaro arm)
+  # bootsplash stuffs
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"
   patch -Np1 -i "${srcdir}/0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch"
   patch -Np1 -i "${srcdir}/0003-revert-fbcon-remove-soft-scrollback-code.patch"
-  #patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
-  #patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
   # CacULE
-  patch -Np1 -i "${srcdir}/cacule-5.13.patch"
-  patch -Np1 -i "${srcdir}/rdb-5.13.patch"
-   # FOSS Modem stuff
-  patch -Np1 -i "${srcdir}/ec25.patch"
+  patch -Np1 -i "${srcdir}/cacule-5.12.patch"
+  patch -Np1 -i "${srcdir}/rdb-5.12.patch"
   cat "${srcdir}/config" > ./.config
 
   # add pkgrel to extraversion
@@ -93,7 +94,7 @@ prepare() {
 
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
-
+  
   # Fix DistCC compatibility
   sed -i '/HAVE_GCC_PLUGINS/d' arch/x86/Kconfig
 }
@@ -247,20 +248,20 @@ _package-headers() {
   # Fix permissions
   chmod -R u=rwX,go=rX "${_builddir}"
 
-  #echo "Stripping build tools..."
-  #local _binary _strip
-  #while read -rd '' _binary; do
-    #case "$(file -bi "${_binary}")" in
-      #*application/x-sharedlib*)  _strip="${STRIP_SHARED}"   ;; # Libraries (.so)
-      #*application/x-archive*)    _strip="${STRIP_STATIC}"   ;; # Libraries (.a)
-      #*application/x-executable*) _strip="${STRIP_BINARIES}" ;; # Binaries
-      #*) continue ;;
-    #esac
-    #strip ${_strip} "${_binary}"
-  #done < <(find "${_builddir}/scripts" -type f -perm -u+w -print0 2>/dev/null)
+  echo "Stripping build tools..."
+  local _binary _strip
+  while read -rd '' _binary; do
+    case "$(file -bi "${_binary}")" in
+      *application/x-sharedlib*)  _strip="${STRIP_SHARED}"   ;; # Libraries (.so)
+      *application/x-archive*)    _strip="${STRIP_STATIC}"   ;; # Libraries (.a)
+      *application/x-executable*) _strip="${STRIP_BINARIES}" ;; # Binaries
+      *) continue ;;
+    esac
+    strip ${_strip} "${_binary}"
+  done < <(find "${_builddir}/scripts" -type f -perm -u+w -print0 2>/dev/null)
 
-  #echo "Stripping vmlinux..."
-  #${CROSS_COMPILE}strip -v ${STRIP_STATIC} "${_builddir}/vmlinux"
+  echo "Stripping vmlinux..."
+  ${CROSS_COMPILE}strip -v ${STRIP_STATIC} "${_builddir}/vmlinux"
 }
 
 pkgname=("$pkgbase" "$pkgbase-headers")
@@ -271,7 +272,7 @@ for _p in "${pkgname[@]}"; do
   }"
 done
 
-md5sums=('SKIP'
+md5sums=('8959691f8cba631e5a2eca74898b8f3c'
          'SKIP'
          '979a787cf84bef9c60da78e72ec96550'
          'f79300740a7350d2d24ab5e120831b52'
@@ -282,6 +283,7 @@ md5sums=('SKIP'
          '3182f25beb0b76e8abd2e9de8213351d'
          'c2b0ee1805e10cba7072cbcae67830b2'
          '10d200e0a964f24cdb744678a758e22b'
+         'c846408cdabe7978a687fa3648f3c96f'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -300,6 +302,5 @@ md5sums=('SKIP'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-	 'SKIP'
-	 'SKIP'
-	 'SKIP')
+         'SKIP'
+         'SKIP')
