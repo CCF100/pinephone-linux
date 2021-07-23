@@ -4,7 +4,7 @@ This is a PKGBUILD modified from https://github.com/dreemurrs-embedded/Pine64-Ar
 \
 Added patches include:\
     - CacULE\
-    - Anbox :D \
+    - Anbox :D
 
 On github? Main repository is at https://ccf100.duckdns.org/gitea/CCF_100/pinephone-linux \
 Github Mirror: https://github.com/CCF100/pinephone-linux
